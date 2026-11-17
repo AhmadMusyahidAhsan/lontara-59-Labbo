@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lontara 59 Labbo - Media Pembelajaran Aksara Makassar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Buginese&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #faf7f2;
+      color: #292524;
+    }
+
+    /* Tipografi Khusus Aksara Lontara */
+    .lontara-font {
+      font-family: 'Noto Sans Buginese', 'Saweri', 'Lontara', sans-serif;
+      font-feature-settings: "ccmp" 1, "liga" 1, "mark" 1, "mkmk" 1;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 2.35;
+      letter-spacing: 0.04em;
+      word-spacing: 0.25em;
+    }
+
+    /* Tema Manuskrip Lontar */
+    .theme-lontar {
+      background-color: #fbf5e6;
+      background-image: linear-gradient(to bottom, transparent 95%, rgba(180, 140, 90, 0.2) 96%);
+      background-size: 100% 3.2rem;
+      color: #3f2305;
+      border-color: #d6c299;
+      box-shadow: inset 0 2px 10px rgba(120, 80, 30, 0.08);
+    }
+
+    /* Tema Modern Tegas */
+    .theme-modern {
+      background-color: #ffffff;
+      color: #1c1917;
+      border-color: #e7e5e4;
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Tema Kaligrafi Emas & Marun */
+    .theme-kaligrafi {
+      background: linear-gradient(135deg, #4c0519 0%, #7f1d1d 100%);
+      color: #fde68a;
+      border-color: #9f1239;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f5f0e6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #d6c7b2;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b59f84;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-red-900 via-red-800 to-amber-900 text-amber-50 shadow-md border-b-4 border-amber-500">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center shadow-inner">
+          <span class="lontara-font text-3xl text-amber-300 leading-none pt-1">ᨒᨚ</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl md:text-2xl font-extrabold tracking-tight text-white">Lontara 59 Labbo</h1>
+            <span class="px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider bg-amber-500 text-red-950 rounded-md">Makassar</span>
+          </div>
+          <p class="text-xs md:text-sm text-amber-200/90 font-medium">Media Pembelajaran Aksara Makassar • SD Negeri 59 Labbo, Tompobulu, Bantaeng</p>
+        </div>
+      </div>
+
+      <!-- Navigasi Tab -->
+      <nav class="flex bg-red-950/60 p-1 rounded-xl border border-red-700/50 w-full md:w-auto justify-center">
+        <button onclick="switchTab('transliterasi')" id="tab-transliterasi" class="tab-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-amber-500 text-red-950 shadow">
+          Transliterasi & Ketik
+        </button>
+        <button onclick="switchTab('kamus')" id="tab-kamus" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all text-amber-100 hover:bg-red-800/50">
+          Kamus Ina Sura'
+        </button>
+        <button onclick="switchTab('kuis')" id="tab-kuis" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all text-amber-100 hover:bg-red-800/50">
+          Mini Kuis
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Konten Utama -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
+
+    <!-- ==================== TAB 1: TRANSLITERASI & PAPAN KETIK ==================== -->
+    <section id="view-transliterasi" class="space-y-6">
+
+      <!-- Bilah Pengaturan Mode & Contoh -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-stone-200 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="text-xs font-bold uppercase tracking-wider text-stone-500">Kaidah Ejaan:</span>
+          <div class="inline-flex rounded-xl bg-stone-100 p-1 border border-stone-200">
+            <button onclick="setOrthographyMode('makassar')" id="mode-makassar" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-red-800 text-white shadow-sm">
+              Makassar Murni (19 Huruf)
+            </button>
+            <button onclick="setOrthographyMode('pranasal')" id="mode-pranasal" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-stone-600 hover:text-stone-900">
+              Lengkap + Pranasal (23 Huruf)
+            </button>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-semibold text-stone-500">Contoh Cepat:</span>
+          <button onclick="insertSample('nganre')" class="px-2.5 py-1 text-xs font-medium bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-lg transition">nganre</button>
+          <button onclick="insertSample('tabe karaeng')" class="px-2.5 py-1 text-xs font-medium bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-lg transition">tabe karaeng</button>
+          <button onclick="insertSample('ewako bantaeng')" class="px-2.5 py-1 text-xs font-medium bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-lg transition">ewako bantaeng</button>
+          <button onclick="insertSample('sd negeri limampulo salapang labbo tompobulu')" class="px-2.5 py-1 text-xs font-medium bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 rounded-lg transition">SDN 59 Labbo</button>
+        </div>
+      </div>
+
+      <!-- Area Input & Output Dua Kolom -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Kolom Kiri: Input Latin -->
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-200 flex flex-col overflow-hidden">
+          <div class="px-4 py-3 bg-stone-50 border-b border-stone-200 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-red-700"></span>
+              <h2 class="text-sm font-bold text-stone-800">Teks Latin (Bahasa Makassar / Indonesia)</h2>
+            </div>
+            <button onclick="clearAllText()" class="text-xs font-semibold text-red-700 hover:text-red-900 px-2.5 py-1 rounded-md hover:bg-red-50 transition">
+              Bersihkan
+            </button>
+          </div>
+          <textarea
+            id="latin-input"
+            rows="6"
+            placeholder="Ketik kata atau kalimat di sini... Contoh: nganre, bajiki, tabe karaeng, tompobulu bantaeng"
+            class="w-full flex-1 p-4 text-base md:text-lg text-stone-800 focus:outline-none resize-none leading-relaxed"
+            oninput="handleLatinInput()"
+          >nganre</textarea>
+          <div class="px-4 py-2.5 bg-stone-50 border-t border-stone-100 text-xs text-stone-500 flex items-center justify-between">
+            <span id="orthography-hint">Mode Makassar Murni: Konsonan penutup suku kata tidak ditulis (nganre → ᨂᨑᨙ).</span>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Output Aksara Lontara -->
+        <div class="bg-white rounded-2xl shadow-sm border border-stone-200 flex flex-col overflow-hidden">
+          <div class="px-4 py-3 bg-stone-50 border-b border-stone-200 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              <h2 class="text-sm font-bold text-stone-800">Hasil Aksara Lontara</h2>
+            </div>
+
+            <!-- Kontrol Tema & Ukuran Font -->
+            <div class="flex items-center gap-2">
+              <div class="flex rounded-lg border border-stone-200 overflow-hidden text-xs font-semibold">
+                <button onclick="setDisplayTheme('lontar')" id="btn-theme-lontar" class="px-2 py-1 bg-amber-100 text-amber-950">Lontar</button>
+                <button onclick="setDisplayTheme('modern')" id="btn-theme-modern" class="px-2 py-1 bg-white text-stone-600 hover:bg-stone-50">Modern</button>
+                <button onclick="setDisplayTheme('kaligrafi')" id="btn-theme-kaligrafi" class="px-2 py-1 bg-white text-stone-600 hover:bg-stone-50">Kaligrafi</button>
+              </div>
+              <button onclick="copyLontara()" id="copy-btn" class="px-3 py-1 bg-red-800 hover:bg-red-900 text-white text-xs font-bold rounded-lg transition shadow-sm">
+                Salin
+              </button>
+            </div>
+          </div>
+
+          <!-- Area Teks Lontara -->
+          <div id="lontara-output-box" class="flex-1 p-5 min-h-[190px] border-b transition-all theme-lontar flex items-center">
+            <div id="lontara-output" class="lontara-font w-full break-words select-all" style="font-size: 38px;">ᨂᨑᨙ</div>
+          </div>
+
+          <!-- Bar Ukuran Huruf & Rincian Suku Kata -->
+          <div class="px-4 py-2.5 bg-stone-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-stone-600">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold">Ukuran:</span>
+              <input type="range" id="font-size-slider" min="24" max="64" value="38" oninput="changeFontSize(this.value)" class="w-24 accent-red-800 cursor-pointer">
+              <span id="font-size-label" class="font-mono font-bold text-stone-800">38px</span>
+            </div>
+            <div id="syllable-breakdown" class="font-medium text-amber-900 truncate">
+              Pemecahan: ngan (ᨂ) + re (ᨑᨙ)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Papan Ketik Virtual Lontara -->
+      <div class="bg-white rounded-2xl p-5 shadow-sm border border-stone-200 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-100 pb-3">
+          <div>
+            <h3 class="text-base font-bold text-stone-800">Papan Ketik Virtual Lontara (Bebas Titik Lingkaran)</h3>
+            <p class="text-xs text-stone-500">Klik <strong>Ina Sura'</strong> (huruf dasar), lalu klik <strong>Ana' Sura'</strong> (tanda vokal) untuk mengubah bunyi vokal secara otomatis.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="insertVirtualSpace()" class="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-bold rounded-lg border border-stone-300 transition">Spasi</button>
+            <button onclick="insertPallawa()" class="px-3 py-1.5 bg-amber-100 hover:bg-amber-200 text-amber-950 text-xs font-bold rounded-lg border border-amber-300 transition">Pallawa (᨞)</button>
+            <button onclick="backspaceLontara()" class="px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-800 text-xs font-bold rounded-lg border border-red-200 transition">⌫ Hapus</button>
+          </div>
+        </div>
+
+        <!-- Baris Ana' Sura' (Tanda Vokal dengan Penyangga Netral ᨕ agar tidak muncul titik-titik) -->
+        <div>
+          <span class="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-2">Ana' Sura' (Tanda Vokal)</span>
+          <div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            <button onclick="applyVowelMark('')" class="flex flex-col items-center justify-center p-2 rounded-xl bg-stone-50 hover:bg-amber-50 border border-stone-200 hover:border-amber-400 transition group">
+              <span class="lontara-font text-2xl text-stone-800 group-hover:text-red-900 leading-normal">ᨕ</span>
+              <span class="text-[11px] font-bold text-stone-500">a (inheren)</span>
+            </button>
+            <button onclick="applyVowelMark('\u1A17')" class="flex flex-col items-center justify-center p-2 rounded-xl bg-amber-50/60 hover:bg-amber-100 border border-amber-200 hover:border-amber-500 transition group">
+              <span class="lontara-font text-2xl text-red-900 leading-normal">ᨕᨗ</span>
+              <span class="text-[11px] font-bold text-amber-900">i (tetti' riase')</span>
+            </button>
+            <button onclick="applyVowelMark('\u1A18')" class="flex flex-col items-center justify-center p-2 rounded-xl bg-amber-50/60 hover:bg-amber-100 border border-amber-200 hover:border-amber-500 transition group">
+              <span class="lontara-font text-2xl text-red-900 leading-normal">ᨕᨘ</span>
+              <span class="text-[11px] font-bold text-amber-900">u (tetti' riawa)</span>
+            </button>
+            <button onclick="applyVowelMark('\u1A19')" class="flex flex-col items-center justify-center p-2 rounded-xl bg-amber-50/60 hover:bg-amber-100 border border-amber-200 hover:border-amber-500 transition group">
+              <span class="lontara-font text-2xl text-red-900 leading-normal">ᨕᨙ</span>
+              <span class="text-[11px] font-bold text-amber-900">e (kecce' riolo)</span>
+            </button>
+            <button onclick="applyVowelMark('\u1A1A')" class="flex flex-col items-center justify-center p-2 rounded-xl bg-amber-50/60 hover:bg-amber-100 border border-amber-200 hover:border-amber-500 transition group">
+              <span class="lontara-font text-2xl text-red-900 leading-normal">ᨕᨚ</span>
+              <span class="text-[11px] font-bold text-amber-900">o (kecce' rimunri)</span>
+            </button>
+            <button onclick="applyVowelMark('\u1A1B')" class="flex flex-col items-center justify-center p-2 rounded-xl bg-amber-50/60 hover:bg-amber-100 border border-amber-200 hover:border-amber-500 transition group">
+              <span class="lontara-font text-2xl text-red-900 leading-normal">ᨕᨛ</span>
+              <span class="text-[11px] font-bold text-amber-900">ə / e pepet</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Grid Ina Sura' (23 Huruf Dasar) -->
+        <div>
+          <span class="block text-[11px] font-bold uppercase tracking-wider text-stone-400 mb-2">Ina Sura' (19 Huruf Pokok Makassar + 4 Pranasal)</span>
+          <div id="virtual-keyboard-grid" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+            <!-- Diisi otomatis via JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: KAMUS INA SURA' ==================== -->
+    <section id="view-kamus" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-stone-200">
+        <div class="max-w-3xl mb-6">
+          <h2 class="text-xl font-extrabold text-stone-900">Daftar Huruf Aksara Lontara (Ina Sura')</h2>
+          <p class="text-sm text-stone-600 mt-1">
+            Aksara Lontara Makassar tradisional menggunakan <strong>19 huruf pokok</strong> tanpa konsonan mati di akhir suku kata. Empat huruf pranasal tambahan (<em>ngka, mpa, nra, nca</em>) berasal dari sistem Lontara Bugis dan sering dijumpai dalam naskah gabungan.
+          </p>
+        </div>
+
+        <div id="dictionary-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3.5">
+          <!-- Diisi otomatis via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: MINI KUIS ==================== -->
+    <section id="view-kuis" class="hidden">
+      <div class="max-w-2xl mx-auto bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-stone-200 text-center space-y-6">
+        <div class="flex items-center justify-between border-b border-stone-100 pb-4">
+          <span class="text-xs font-bold uppercase tracking-wider text-red-800 bg-red-50 px-3 py-1 rounded-full">Latihan Membaca Aksara</span>
+          <span class="text-sm font-bold text-stone-700">Skor: <span id="quiz-score" class="text-red-800 text-lg">0</span></span>
+        </div>
+
+        <div class="py-4">
+          <p class="text-sm text-stone-500 mb-2">Apa bacaan Latin dari aksara Lontara Makassar berikut?</p>
+          <div id="quiz-question-lontara" class="lontara-font text-6xl md:text-7xl text-red-900 py-4 select-none">ᨀᨑᨕᨙ</div>
+          <p id="quiz-hint" class="text-xs text-stone-400 italic mt-1"></p>
+        </div>
+
+        <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Pilihan ganda diisi via JS -->
+        </div>
+
+        <div id="quiz-feedback" class="hidden p-3.5 rounded-xl text-sm font-semibold"></div>
+
+        <div class="pt-2">
+          <button onclick="nextQuizQuestion()" class="px-6 py-2.5 bg-red-800 hover:bg-red-900 text-white font-bold text-sm rounded-xl shadow transition">
+            Soal Berikutnya →
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-stone-900 text-stone-400 py-5 px-4 mt-12 border-t border-stone-800">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+      <p class="font-semibold text-stone-300">Lontara 59 Labbo — Pelestarian Aksara & Bahasa Makassar</p>
+      <p>SD Negeri 59 Labbo • Kec. Tompobulu, Kab. Bantaeng, Sulawesi Selatan</p>
+    </div>
+  </footer>
+
+  <script>
+    // =========================================================================
+    // 1. DATA AKSARA LONTARA (19 HURUF POKOK MAKASSAR + 4 PRANASAL)
+    // =========================================================================
+    const INA_SURA = [
+      { char: 'ᨀ', latin: 'ka', type: 'pokok' },
+      { char: 'ᨁ', latin: 'ga', type: 'pokok' },
+      { char: 'ᨂ', latin: 'nga', type: 'pokok' },
+      { char: 'ᨃ', latin: 'ngka', type: 'pranasal' },
+      { char: 'ᨄ', latin: 'pa', type: 'pokok' },
+      { char: 'ᨅ', latin: 'ba', type: 'pokok' },
+      { char: 'ᨆ', latin: 'ma', type: 'pokok' },
+      { char: 'ᨇ', latin: 'mpa', type: 'pranasal' },
+      { char: 'ᨈ', latin: 'ta', type: 'pokok' },
+      { char: 'ᨉ', latin: 'da', type: 'pokok' },
+      { char: 'ᨊ', latin: 'na', type: 'pokok' },
+      { char: 'ᨋ', latin: 'nra', type: 'pranasal' },
+      { char: 'ᨌ', latin: 'ca', type: 'pokok' },
+      { char: 'ᨍ', latin: 'ja', type: 'pokok' },
+      { char: 'ᨎ', latin: 'nya', type: 'pokok' },
+      { char: 'ᨏ', latin: 'nca', type: 'pranasal' },
+      { char: 'ᨐ', latin: 'ya', type: 'pokok' },
+      { char: 'ᨑ', latin: 'ra', type: 'pokok' },
+      { char: 'ᨒ', latin: 'la', type: 'pokok' },
+      { char: 'ᨓ', latin: 'wa', type: 'pokok' },
+      { char: 'ᨔ', latin: 'sa', type: 'pokok' },
+      { char: 'ᨕ', latin: 'a', type: 'pokok' },
+      { char: 'ᨖ', latin: 'ha', type: 'pokok' }
+    ];
+
+    const CONSONANT_MAP = {
+      'ngk': 'ᨃ', 'mp': 'ᨇ', 'nr': 'ᨋ', 'nc': 'ᨏ',
+      'ng': 'ᨂ', 'ny': 'ᨎ',
+      'k': 'ᨀ', 'g': 'ᨁ', 'p': 'ᨄ', 'b': 'ᨅ', 'm': 'ᨆ',
+      't': 'ᨈ', 'd': 'ᨉ', 'n': 'ᨊ', 'c': 'ᨌ', 'j': 'ᨍ',
+      'y': 'ᨐ', 'r': 'ᨑ', 'l': 'ᨒ', 'w': 'ᨓ', 's': 'ᨔ',
+      'h': 'ᨖ', '': 'ᨕ'
+    };
+
+    const VOWEL_MARKS = {
+      'a': '',
+      'i': '\u1A17',
+      'u': '\u1A18',
+      'e': '\u1A19',
+      'é': '\u1A19',
+      'o': '\u1A1A',
+      'ə': '\u1A1B'
+    };
+
+    let currentMode = 'makassar'; // 'makassar' atau 'pranasal'
+
+    // =========================================================================
+    // 2. PEMBERSIH TANDA VOKAL YATIM (ANTI DOTTED CIRCLE U+25CC)
+    // =========================================================================
+    function sanitizeLontaraText(str) {
+      if (!str) return '';
+      // Hapus karakter lingkaran putus-putus U+25CC jika ada
+      let clean = str.replace(/\u25CC/g, '');
+      // Jika ada tanda vokal (U+1A17 - U+1A1B) yang tidak didahului Ina Sura' (U+1A00 - U+1A16), sisipkan ᨕ
+      clean = clean.replace(/(^|[^\u1A00-\u1A16])([\u1A17-\u1A1B]+)/g, (match, prefix, marks) => {
+        return prefix + 'ᨕ' + marks[0];
+      });
+      // Cegah tanda vokal ganda bertumpuk pada satu huruf
+      clean = clean.replace(/([\u1A00-\u1A16])([\u1A17-\u1A1B]){2,}/g, '$1$2');
+      return clean;
+    }
+
+    // =========================================================================
+    // 3. MESIN PEMECAH SUKU KATA & TRANSLITERASI LONTARA MAKASSAR
+    // =========================================================================
+    function syllabifyWord(word) {
+      // Normalisasi huruf kecil dan hilangkan glottal stop apostrof/q/k di akhir
+      let clean = word.toLowerCase().replace(/['’]/g, '');
+      if (!clean) return [];
+
+      const vowels = 'aiueoéə';
+      const isVowel = (ch) => vowels.includes(ch);
+
+      // Cari posisi semua vokal
+      let vowelIndices = [];
+      for (let i = 0; i < clean.length; i++) {
+        if (isVowel(clean[i])) vowelIndices.push(i);
+      }
+
+      if (vowelIndices.length === 0) {
+        return [{ onset: clean, vowel: 'a', coda: '', raw: clean }];
+      }
+
+      let syllables = [];
+      let start = 0;
+
+      for (let idx = 0; idx < vowelIndices.length; idx++) {
+        let vPos = vowelIndices[idx];
+        let onset = clean.slice(start, vPos);
+        let vowel = clean[vPos];
+        let coda = '';
+
+        if (idx < vowelIndices.length - 1) {
+          let nextVPos = vowelIndices[idx + 1];
+          let between = clean.slice(vPos + 1, nextVPos);
+
+          if (between.length === 0) {
+            coda = '';
+            start = nextVPos;
+          } else if (between.length === 1) {
+            coda = '';
+            start = vPos + 1;
+          } else {
+            // Cek apakah gugus konsonan termasuk diftong konsonan (ng, ny, ngk, mp, nr, nc)
+            if (between === 'ng' || between === 'ny') {
+              coda = '';
+              start = vPos + 1;
+            } else if (between.startsWith('ng') && between.length > 2) {
+              // Contoh: "ngan-re" -> between setelah 'a' adalah "nr"
+              coda = 'ng';
+              start = vPos + 3;
+            } else {
+              // Konsonan pertama jadi koda suku kata ini, sisanya onset suku kata berikutnya
+              coda = between[0];
+              start = vPos + 2;
+            }
+          }
+        } else {
+          coda = clean.slice(vPos + 1);
+          start = clean.length;
+        }
+
+        syllables.push({ onset, vowel, coda, raw: onset + vowel + coda });
+      }
+
+      return syllables;
+    }
+
+    function transliterateWord(word) {
+      // Pertahankan tanda baca
+      if (/^[.,!?;:]+$/.test(word)) {
+        return { lontara: '᨞', breakdown: [] };
+      }
+
+      const syllables = syllabifyWord(word);
+      let result = '';
+      let breakdown = [];
+
+      for (let i = 0; i < syllables.length; i++) {
+        let syl = { ...syllables[i] };
+
+        // Jika mode Pranasal (23 huruf), gabungkan koda nasal dengan onset berikutnya
+        if (currentMode === 'pranasal' && i < syllables.length - 1) {
+          let nextSyl = syllables[i + 1];
+          let combo = syl.coda + nextSyl.onset;
+          if (['ngk', 'mp', 'nr', 'nc'].includes(combo)) {
+            syllables[i + 1].onset = combo;
+            syl.coda = '';
+          }
+        }
+
+        // Petakan onset ke Ina Sura'
+        let onsetKey = syl.onset;
+        if (!CONSONANT_MAP.hasOwnProperty(onsetKey)) {
+          // Ambil konsonan utama jika ada gugus asing
+          if (onsetKey.endsWith('ng')) onsetKey = 'ng';
+          else if (onsetKey.endsWith('ny')) onsetKey = 'ny';
+          else onsetKey = onsetKey.slice(-1);
+        }
+
+        let baseChar = CONSONANT_MAP[onsetKey] || 'ᨕ';
+        let vowelMark = VOWEL_MARKS[syl.vowel] !== undefined ? VOWEL_MARKS[syl.vowel] : '';
+        let lontaraSyl = baseChar + vowelMark;
+
+        result += lontaraSyl;
+        breakdown.push(`${syl.raw} (${lontaraSyl})`);
+      }
+
+      return { lontara: sanitizeLontaraText(result), breakdown };
+    }
+
+    function handleLatinInput() {
+      const input = document.getElementById('latin-input').value;
+      const outputEl = document.getElementById('lontara-output');
+      const breakdownEl = document.getElementById('syllable-breakdown');
+
+      if (!input.trim()) {
+        outputEl.textContent = '';
+        breakdownEl.textContent = 'Ketik teks di sebelah kiri untuk melihat pemecahan suku kata.';
+        return;
+      }
+
+      const lines = input.split('\n');
+      let allBreakdown = [];
+
+      const translatedLines = lines.map(line => {
+        const tokens = line.split(/(\s+|[.,!?;:]+)/);
+        return tokens.map(token => {
+          if (!token) return '';
+          if (/^\s+$/.test(token)) return token;
+          const res = transliterateWord(token);
+          if (res.breakdown.length > 0 && allBreakdown.length < 8) {
+            allBreakdown.push(...res.breakdown);
+          }
+          return res.lontara;
+        }).join('');
+      });
+
+      outputEl.textContent = sanitizeLontaraText(translatedLines.join('\n'));
+      breakdownEl.textContent = allBreakdown.length > 0
+        ? 'Suku kata: ' + allBreakdown.join(' + ')
+        : '';
+    }
+
+    // =========================================================================
+    // 4. KONTROL UI, TEMA, UKURAN FONT & PAPAN KETIK VIRTUAL
+    // =========================================================================
+    function setOrthographyMode(mode) {
+      currentMode = mode;
+      const btnMakassar = document.getElementById('mode-makassar');
+      const btnPranasal = document.getElementById('mode-pranasal');
+      const hint = document.getElementById('orthography-hint');
+
+      if (mode === 'makassar') {
+        btnMakassar.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-red-800 text-white shadow-sm';
+        btnPranasal.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-stone-600 hover:text-stone-900';
+        hint.textContent = 'Mode Makassar Murni: Konsonan penutup suku kata tidak ditulis (nganre → ᨂᨑᨙ).';
+      } else {
+        btnPranasal.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-red-800 text-white shadow-sm';
+        btnMakassar.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-stone-600 hover:text-stone-900';
+        hint.textContent = 'Mode Pranasal (23 Huruf): Menggunakan ngka, mpa, nra, nca (nganre → ᨂᨋᨙ).';
+      }
+      handleLatinInput();
+    }
+
+    function insertSample(text) {
+      document.getElementById('latin-input').value = text;
+      handleLatinInput();
+    }
+
+    function clearAllText() {
+      document.getElementById('latin-input').value = '';
+      document.getElementById('lontara-output').textContent = '';
+      document.getElementById('syllable-breakdown').textContent = '';
+    }
+
+    function setDisplayTheme(theme) {
+      const box = document.getElementById('lontara-output-box');
+      box.classList.remove('theme-lontar', 'theme-modern', 'theme-kaligrafi');
+      box.classList.add('theme-' + theme);
+
+      ['lontar', 'modern', 'kaligrafi'].forEach(t => {
+        const btn = document.getElementById('btn-theme-' + t);
+        if (t === theme) {
+          btn.className = 'px-2 py-1 bg-amber-100 text-amber-950 font-bold';
+        } else {
+          btn.className = 'px-2 py-1 bg-white text-stone-600 hover:bg-stone-50';
+        }
+      });
+    }
+
+    function changeFontSize(val) {
+      document.getElementById('lontara-output').style.fontSize = val + 'px';
+      document.getElementById('font-size-label').textContent = val + 'px';
+    }
+
+    function copyLontara() {
+      const text = document.getElementById('lontara-output').textContent;
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copy-btn');
+        const oldText = btn.textContent;
+        btn.textContent = 'Tersalin ✓';
+        btn.classList.replace('bg-red-800', 'bg-emerald-700');
+        setTimeout(() => {
+          btn.textContent = oldText;
+          btn.classList.replace('bg-emerald-700', 'bg-red-800');
+        }, 1600);
+      });
+    }
+
+    // Papan Ketik Virtual
+    function renderVirtualKeyboard() {
+      const grid = document.getElementById('virtual-keyboard-grid');
+      grid.innerHTML = INA_SURA.map(item => `
+        <button onclick="insertInaSura('${item.char}')" class="flex flex-col items-center justify-center p-2.5 rounded-xl border transition ${
+          item.type === 'pranasal'
+            ? 'bg-amber-50/40 border-amber-200 hover:bg-amber-100'
+            : 'bg-stone-50 border-stone-200 hover:bg-red-50 hover:border-red-300'
+        }">
+          <span class="lontara-font text-2xl text-stone-900 leading-normal">${item.char}</span>
+          <span class="text-xs font-bold text-stone-600">${item.latin}</span>
+        </button>
+      `).join('');
+    }
+
+    function insertInaSura(char) {
+      const out = document.getElementById('lontara-output');
+      out.textContent = sanitizeLontaraText(out.textContent + char);
+    }
+
+    function applyVowelMark(mark) {
+      const out = document.getElementById('lontara-output');
+      let text = out.textContent;
+
+      if (!text) {
+        out.textContent = sanitizeLontaraText('ᨕ' + mark);
+        return;
+      }
+
+      // Cek karakter terakhir
+      const lastChar = text.slice(-1);
+      const isVowelMark = /[\u1A17-\u1A1B]/.test(lastChar);
+      const isInaSura = /[\u1A00-\u1A16]/.test(lastChar);
+
+      if (isVowelMark) {
+        // Ganti tanda vokal yang sudah ada pada huruf terakhir
+        text = text.slice(0, -1) + mark;
+      } else if (isInaSura) {
+        text = text + mark;
+      } else {
+        // Jika setelah spasi atau Pallawa, otomatis pakai penyangga ᨕ agar bebas titik-titik
+        text = text + 'ᨕ' + mark;
+      }
+
+      out.textContent = sanitizeLontaraText(text);
+    }
+
+    function insertVirtualSpace() {
+      const out = document.getElementById('lontara-output');
+      out.textContent += ' ';
+    }
+
+    function insertPallawa() {
+      const out = document.getElementById('lontara-output');
+      out.textContent += '᨞ ';
+    }
+
+    function backspaceLontara() {
+      const out = document.getElementById('lontara-output');
+      out.textContent = out.textContent.slice(0, -1);
+    }
+
+    // =========================================================================
+    // 5. KAMUS HURUF & MINI KUIS
+    // =========================================================================
+    function renderDictionary() {
+      const grid = document.getElementById('dictionary-grid');
+      grid.innerHTML = INA_SURA.map(item => `
+        <div class="p-4 rounded-2xl border text-center transition hover:shadow-md ${
+          item.type === 'pranasal' ? 'bg-amber-50/50 border-amber-200' : 'bg-stone-50 border-stone-200'
+        }">
+          <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase rounded mb-2 ${
+            item.type === 'pranasal' ? 'bg-amber-200 text-amber-950' : 'bg-red-100 text-red-900'
+          }">${item.type === 'pranasal' ? 'Pranasal' : 'Pokok'}</span>
+          <div class="lontara-font text-4xl text-stone-900 my-1">${item.char}</div>
+          <div class="text-base font-extrabold text-stone-800">${item.latin}</div>
+        </div>
+      `).join('');
+    }
+
+    const QUIZ_BANK = [
+      { lontara: 'ᨂᨑᨙ', answer: 'nganre', options: ['nganre', 'ngareng', 'nranre', 'kare'], hint: 'Artinya: makan (bahasa Makassar)' },
+      { lontara: 'ᨀᨑᨕᨙ', answer: 'karaeng', options: ['karaeng', 'karena', 'karawa', 'kaeng'], hint: 'Gelar bangsawan / panggilan hormat Makassar' },
+      { lontara: 'ᨅᨈᨕᨙ', answer: 'bantaeng', options: ['bantaeng', 'batang', 'bantang', 'batae'], hint: 'Nama kabupaten di pesisir selatan Sulawesi Selatan' },
+      { lontara: 'ᨈᨚᨄᨚᨅᨘᨒᨘ', answer: 'tompobulu', options: ['tompobulu', 'tombobulu', 'topobulu', 'tompobala'], hint: 'Nama kecamatan di dataran tinggi Bantaeng' },
+      { lontara: 'ᨕᨙᨓᨀᨚ', answer: 'ewako', options: ['ewako', 'iwako', 'ewaka', 'owako'], hint: 'Seruan semangat khas Makassar: Berjuanglah!' },
+      { lontara: 'ᨅᨍᨗᨀᨗ', answer: 'bajiki', options: ['bajiki', 'bajika', 'baji', 'bajuku'], hint: 'Artinya: baik / bagus' },
+      { lontara: 'ᨈᨅᨙ', answer: 'tabe', options: ['tabe', 'taba', 'tobe', 'tibe'], hint: 'Ungkapan permisi / sopan santun' },
+      { lontara: 'ᨒᨅᨚ', answer: 'labbo', options: ['labbo', 'libbo', 'labba', 'lobbo'], hint: 'Nama desa tempat SD Negeri 59 berada' }
+    ];
+
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    function loadQuizQuestion() {
+      quizAnswered = false;
+      const q = QUIZ_BANK[currentQuizIndex];
+      document.getElementById('quiz-question-lontara').textContent = q.lontara;
+      document.getElementById('quiz-hint').textContent = q.hint;
+      document.getElementById('quiz-feedback').classList.add('hidden');
+
+      const shuffled = [...q.options].sort(() => Math.random() - 0.5);
+      const optionsContainer = document.getElementById('quiz-options');
+      optionsContainer.innerHTML = shuffled.map(opt => `
+        <button onclick="checkQuizAnswer(this, '${opt}')" class="p-3.5 rounded-xl border-2 border-stone-200 hover:border-red-800 font-bold text-stone-800 transition text-base">
+          ${opt}
+        </button>
+      `).join('');
+    }
+
+    function checkQuizAnswer(btn, selected) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+      const q = QUIZ_BANK[currentQuizIndex];
+      const feedback = document.getElementById('quiz-feedback');
+      feedback.classList.remove('hidden');
+
+      if (selected === q.answer) {
+        quizScore += 10;
+        document.getElementById('quiz-score').textContent = quizScore;
+        btn.className = 'p-3.5 rounded-xl border-2 border-emerald-600 bg-emerald-50 font-bold text-emerald-900 text-base';
+        feedback.className = 'p-3.5 rounded-xl text-sm font-semibold bg-emerald-100 text-emerald-900';
+        feedback.textContent = `Tepat sekali! "${q.lontara}" dibaca "${q.answer}".`;
+      } else {
+        btn.className = 'p-3.5 rounded-xl border-2 border-red-600 bg-red-50 font-bold text-red-900 text-base';
+        feedback.className = 'p-3.5 rounded-xl text-sm font-semibold bg-red-100 text-red-900';
+        feedback.textContent = `Kurang tepat. Jawaban yang benar adalah "${q.answer}".`;
+      }
+    }
+
+    function nextQuizQuestion() {
+      currentQuizIndex = (currentQuizIndex + 1) % QUIZ_BANK.length;
+      loadQuizQuestion();
+    }
+
+    // =========================================================================
+    // 6. NAVIGASI TAB & INISIALISASI
+    // =========================================================================
+    function switchTab(tabName) {
+      ['transliterasi', 'kamus', 'kuis'].forEach(t => {
+        document.getElementById('view-' + t).classList.add('hidden');
+        const btn = document.getElementById('tab-' + t);
+        btn.className = 'tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all text-amber-100 hover:bg-red-800/50';
+      });
+
+      document.getElementById('view-' + tabName).classList.remove('hidden');
+      document.getElementById('tab-' + tabName).className = 'tab-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-amber-500 text-red-950 shadow';
+    }
+
+    // Jalankan saat halaman dimuat
+    window.addEventListener('DOMContentLoaded', () => {
+      renderVirtualKeyboard();
+      renderDictionary();
+      loadQuizQuestion();
+      handleLatinInput();
+    });
+  </script>
+</body>
+</html>
